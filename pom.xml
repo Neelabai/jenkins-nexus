@@ -1,4 +1,4 @@
- <project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -6,17 +6,17 @@
     <artifactId>my-java-project</artifactId>
     <version>1.0.5</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <version>3.0</version>
-        </dependency>
-        <!-- Add other dependencies as needed -->
-    </dependencies>
+    <!-- Define the repositories -->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <url>http://35.153.51.89:8080/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
-    <!-- Define build plugins and other configurations here -->
-</project>
-
+    <!-- Define the distributionManagement element -->
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
        
  
