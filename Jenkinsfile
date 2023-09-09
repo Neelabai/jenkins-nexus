@@ -1,41 +1,27 @@
 pipeline {
     agent any
-
+    tools {
+        maven "MAVEN"
+    }
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = ""
+        NEXUS_REPOSITORY = "maven-jar"
+        NEXUS_CREDENTIAL_ID = "NEXUS_CRED"
+    }
     stages {
-        stage('Checkout') {
+        stage("Clone code from GitHub") {
             steps {
-                // Checkout the code from the Git repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Neelabai/jenkins-nexus.git']]])
+                script {
+                    git branch: 'main', credentialsId: 'githubwithpassword', url: 'https://github.com/Neelabai/jenkins-nexus.git';
+                }
             }
         }
-
-        stage('Build') {
+        stage("Maven Build") {
             steps {
-                // Build the Maven project
-                sh 'mvn clean install'
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
             }
         }
-
-        stage('Test') {
-            steps {
-                // Run tests, if applicable
-                sh 'mvn test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Deploy your project, if needed
-                // You can add deployment steps here
-            }
-        }
-    }
-
-    post {
-        always {
-            // Cleanup or perform other post-build actions
-        }
-    }
-}
-
-       
